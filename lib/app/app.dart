@@ -1,36 +1,36 @@
+// lib/app/app.dart (Simplified working version)
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wirdi/core/theme/app_theme.dart';
-import 'package:wirdi/features/dashboard/presentation/pages/dashboard_page.dart';
-import 'package:wirdi/core/services/locale/locale_provider.dart';
+import 'package:wirdi/core/providers/locale_provider.dart';
+import 'package:wirdi/core/providers/theme_provider.dart';
+import 'package:wirdi/features/home/presentation/pages/home_page.dart';
 
-class WirdiApp extends ConsumerStatefulWidget {
+class WirdiApp extends ConsumerWidget {
   const WirdiApp({super.key});
 
   @override
-  ConsumerState<WirdiApp> createState() => _WirdiAppState();
-}
-
-class _WirdiAppState extends ConsumerState<WirdiApp> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeProvider);
+    final themeMode = ref.watch(themeModeProvider);
     
     return ScreenUtilInit(
-      designSize: const Size(375, 812), // Standard mobile design size
-      builder: (_, child) {
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
         return MaterialApp(
           title: 'Wirdi',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.system,
+          themeMode: themeMode,
           locale: locale,
-          supportedLocales: const [Locale('ar'), Locale('en')],
-          localizationsDelegates: const [
-            // Add your delegates here
+          supportedLocales: const [
+            Locale('ar'),
+            Locale('en'),
           ],
-          home: const DashboardPage(),
+          home: const HomePage(),
           debugShowCheckedModeBanner: false,
         );
       },
