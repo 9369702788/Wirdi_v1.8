@@ -1,3 +1,4 @@
+// lib/features/home/presentation/pages/home_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wirdi/features/home/presentation/widgets/bottom_nav_bar.dart';
@@ -17,12 +18,12 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   int _currentIndex = 0;
   
-  final List<Widget> _pages = const [
-    DashboardPage(),
-    QuranPage(),
-    AzkarPage(),
-    PrayerPage(),
-    TasbeehPage(),
+  final List<Widget> _pages = [
+    const DashboardPage(),
+    const QuranPage(),
+    const AzkarPage(),
+    const PrayerPage(),
+    const TasbeehPage(),
   ];
   
   @override
