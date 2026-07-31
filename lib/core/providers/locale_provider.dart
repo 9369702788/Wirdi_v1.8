@@ -1,15 +1,14 @@
-// lib/core/providers/locale_provider.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final localeProvider = StateProvider<Locale>((ref) {
-  return const Locale('ar');
+final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>((ref) {
+  return LocaleNotifier();
 });
 
-// lib/core/providers/theme_provider.dart (Simplified)
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+class LocaleNotifier extends StateNotifier<Locale> {
+  LocaleNotifier() : super(const Locale('en'));
 
-final themeModeProvider = StateProvider<ThemeMode>((ref) {
-  return ThemeMode.system;
-});
+  void setLocale(Locale locale) {
+    state = locale;
+  }
+}
