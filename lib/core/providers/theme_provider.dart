@@ -1,47 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wirdi/core/services/storage/hive_service.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import '../services/storage/hive_service.dart';
 
-final themeModeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
-  return ThemeNotifier();
+final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
+  return ThemeModeNotifier();
 });
 
-class ThemeNotifier extends StateNotifier<ThemeMode> {
-  ThemeNotifier() : super(ThemeMode.system) {
+class ThemeModeNotifier extends StateNotifier<ThemeMode> {
+  ThemeModeNotifier() : super(ThemeMode.system) {
     _loadTheme();
   }
-  
-  final Box settingsBox = HiveService().getBox(HiveService.settingsBox);
-  
-  Future<void> _loadTheme() async {
-    final savedTheme = settingsBox.get('themeMode', defaultValue: 'system');
-    state = _stringToThemeMode(savedTheme);
+
+  void _loadTheme() {
+    final box = Hive.box(HiveService.settingsBoxName);
+    final savedTheme = box.get('theme_mode', defaultValue: 'system');
+    if (savedTheme == 'dark') {
+      state = ThemeMode.dark;
+    } else if (savedTheme == 'light') {
+      state = ThemeMode.light;
+    } else {
+      state = ThemeMode.system;
+    }
   }
-  
-  Future<void> setTheme(ThemeMode mode) async {
+
+  Future<void> setThemeMode(ThemeMode mode) async {
     state = mode;
-    await settingsBox.put('themeMode', _themeModeToString(mode));
-  }
-  
-  String _themeModeToString(ThemeMode mode) {
-    switch (mode) {
-      case ThemeMode.light:
-        return 'light';
-      case ThemeMode.dark:
-        return 'dark';
-      case ThemeMode.system:
-        return 'system';
-    }
-  }
-  
-  ThemeMode _stringToThemeMode(String value) {
-    switch (value) {
-      case 'light':
-        return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
-      default:
-        return ThemeMode.system;
-    }
+    final box = Hive.box(HiveService.settingsBoxName);
+    String val = 'system';
+    if (mode == ThemeMode.dark) val = 'dark';
+    if (mode == ThemeMode.light) val = 'light';
+    await box.put('theme_mode', val);
   }
 }
