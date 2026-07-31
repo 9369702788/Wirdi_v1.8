@@ -1,0 +1,62 @@
+# Flutter
+*.aab
+*.apk
+*.iml
+*.iws
+*.lock
+*.pod
+*.swp
+*.xcworkspace
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner/Info.plist
+**/ios/Runner.xcodeproj/project.pbxproj
+**/ios/Runner.xcodeproj/xcshareddata/
+**/ios/Runner.xcworkspace/
+**/ios/Runner/GoogleService-Info.plist
+
+# Build
+build/
+.dart_tool/
+.pub-cache/
+.pub/
+pubspec.lock
+**/coverage/
+**/test/.test_cache
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+**/android/.settings/
+**/android/app/.classpath
+**/android/app/.project
+**/android/app/.settings/
+
+# Firebase
+**/firebase_options.dart
+**/GoogleService-Info.plist
+**/google-services.json
+
+# Environment
+.env
+*.env
+**/keys/
+**/secrets/
